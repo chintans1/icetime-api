@@ -1,4 +1,6 @@
-const { nhlScores, nhlLogo } = require('../services/nhlApi.service');
+const { nhlScores } = require('../services/nhlApi.service');
+
+const baseLogoUrl = 'https://www-league.nhlstatic.com/images/logos/teams-current-primary-light';
 
 // FIXME: Move these methods into a better place.
 // Not sure if controller is the best place for it.
@@ -18,9 +20,8 @@ const getTeamName = (fullName) => {
   }
 }
 
-const getTeamLogo = (teamId) => {
-  // FIXME: grab NHL logo properly
-  return nhlLogo(teamId);
+const getTeamLogoLink = (teamId) => {
+  return `${baseLogoUrl}/${teamId}.svg`;
 }
 
 const transformSingleGame = (game) => {
@@ -29,12 +30,12 @@ const transformSingleGame = (game) => {
     homeTeam: {
       teamName: getTeamName(game.teams.home.team.name),
       fullTeamName: game.teams.home.team.name,
-      teamLogo: getTeamLogo(game.teams.home.team.id)
+      teamLogo: getTeamLogoLink(game.teams.home.team.id)
     },
     roadTeam: {
       teamName: getTeamName(game.teams.away.team.name),
       fullTeamName: game.teams.away.team.name,
-      teamLogo: getTeamLogo(game.teams.away.team.id)
+      teamLogo: getTeamLogoLink(game.teams.away.team.id)
     },
     gameInformation: {
       gameStatus: game.status.abstractGameState, // either "Live", "Preview", "Final"
@@ -66,8 +67,9 @@ const transformNhlScores = (scores) => {
 const getScores = async (req, res, next) => {
   try {
     const rawScores = await nhlScores(req.query);
+    const formattedScores = transformNhlScores(rawScores);
 
-    return res.json(transformNhlScores(rawScores));
+    return res.json(formattedScores);
   } catch (error) {
     return next(error);
   }
