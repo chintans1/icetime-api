@@ -6,8 +6,8 @@ const getTeamLogo = async (req, res, next) => {
 
     return res.json(encodedPng);
   } catch (error) {
-    next(error);
+    return next(error);
   }
-}
+};
 
-module.exports = { getTeamLogo }
+module.exports = { getTeamLogo };

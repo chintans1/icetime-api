@@ -4,8 +4,6 @@
  *
  * @param {Date} date
  */
-const dateFormatter = (date) => {
-  return date.toISOString().split('T')[0];
-}
+const dateFormatter = date => date.toISOString().split('T')[0];
 
 module.exports = { dateFormatter };
