@@ -1,6 +1,9 @@
 {
   "name": "hockey-app-api",
-  "version": "0.0.1",
+  "description": "Hockey API...",
+  "author": "Chintan Shah <chintans98@gmail.com> (https://chintans.me)",
+  "repository": "github:chintans1/hockey-app-api",
+  "version": "0.1.0",
   "main": "src/index.js",
   "engines": {
     "node": ">=8",
