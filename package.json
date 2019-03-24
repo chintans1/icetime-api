@@ -33,6 +33,7 @@
     "moment-timezone": "^0.5.13",
     "morgan": "^1.8.1",
     "pm2": "^3.0.0",
+    "svg-to-img": "^2.0.9",
     "winston": "^3.1.0"
   },
   "devDependencies": {
