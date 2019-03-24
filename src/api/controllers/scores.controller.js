@@ -1,5 +1,8 @@
 const { nhlScores, nhlLogo } = require('../services/nhlApi.service');
 
+// FIXME: Move these methods into a better place.
+// Not sure if controller is the best place for it.
+
 const getTeamName = (fullName) => {
   // FIXME: Better handling of getting team name
   if (fullName.includes("Detroit")) {
@@ -16,6 +19,7 @@ const getTeamName = (fullName) => {
 }
 
 const getTeamLogo = (teamId) => {
+  // FIXME: grab NHL logo properly
   return nhlLogo(teamId);
 }
 
