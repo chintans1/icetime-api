@@ -15,7 +15,7 @@ const nhlLogo = async (teamId) => {
 
     return `data:image/png;base64,${png}`;
   } catch (error) {
-    console.error(error);
+    handleError(error);
   }
 };
 
@@ -40,7 +40,19 @@ const nhlScores = async (query) => {
       },
     };
   } catch (error) {
-    console.error(error);
+    handleError(error);
+  }
+};
+
+const handleError = (error) => {
+  if (error.response) {
+    // The request was made and the server responded with
+    // some sort of error message that we can display
+    throw new Error(`${error.response}`);
+  } else {
+    // Something happened during the request so we
+    // just show the message that was recieved
+    throw new Error(`${error.message}`);
   }
 };
 
