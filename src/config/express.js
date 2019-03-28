@@ -1,3 +1,4 @@
+const path = require('path');
 const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
@@ -37,6 +38,9 @@ app.use(cors());
 
 // mount api v1 routes
 app.use('/v1', routes);
+
+// serve logos at /static/logos, logos fetched from src/assets/logos
+app.use('/static/logos', express.static(path.join(__dirname, '../assets/logos')))
 
 // if error is not an instanceOf APIError, convert it.
 app.use(error.converter);
