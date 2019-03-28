@@ -5,6 +5,9 @@ const baseLogoUrl = 'https://www-league.nhlstatic.com/images/logos/teams-current
 // FIXME: Move these methods into a better place.
 // Not sure if controller is the best place for it.
 
+// FIXME: Host the logos internally. Difficult for consumers
+// to load the logo if they do not support .svg
+
 const getTeamName = (fullName) => {
   // FIXME: Better handling of getting team name
   if (fullName.includes('Detroit')) {
@@ -40,10 +43,10 @@ const transformSingleGame = game => ({
       currentPeriod: game.linescore.currentPeriodOrdinal,
       currentPeriodTimeRemaining: game.linescore.currentPeriodTimeRemaining,
     },
-  },
-  gameScore: {
-    homeTeam: game.teams.home.score,
-    roadTeam: game.teams.away.score,
+    gameScore: {
+      homeTeam: game.teams.home.score,
+      roadTeam: game.teams.away.score,
+    },
   },
 });
 
