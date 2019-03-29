@@ -1,7 +1,5 @@
 const { nhlScores } = require('../services/nhlApi.service');
 
-const baseLogoUrl = 'https://www-league.nhlstatic.com/images/logos/teams-current-primary-light';
-
 // FIXME: Move these methods into a better place.
 // Not sure if controller is the best place for it.
 
@@ -22,19 +20,19 @@ const getTeamName = (fullName) => {
   return fullName.split(' ').pop();
 };
 
-const getTeamLogoLink = teamId => `${baseLogoUrl}/${teamId}.svg`;
+const getTeamLogoName = teamId => `logo_${teamId}.png`;
 
 const transformSingleGame = game => ({
   gameId: game.gamePk,
   homeTeam: {
     teamName: getTeamName(game.teams.home.team.name),
     fullTeamName: game.teams.home.team.name,
-    teamLogo: getTeamLogoLink(game.teams.home.team.id),
+    teamLogoName: getTeamLogoName(game.teams.home.team.id),
   },
   roadTeam: {
     teamName: getTeamName(game.teams.away.team.name),
     fullTeamName: game.teams.away.team.name,
-    teamLogo: getTeamLogoLink(game.teams.away.team.id),
+    teamLogoName: getTeamLogoName(game.teams.away.team.id),
   },
   gameInformation: {
     gameStatus: game.status.abstractGameState, // either "Live", "Preview", "Final"
