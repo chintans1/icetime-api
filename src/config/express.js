@@ -40,7 +40,7 @@ app.use(cors());
 app.use('/v1', routes);
 
 // serve logos at /static/logos, logos fetched from src/assets/logos
-app.use('/static/logos', express.static(path.join(__dirname, '../assets/logos')))
+app.use('/static/logos', express.static(path.join(__dirname, '../assets/logos')));
 
 // if error is not an instanceOf APIError, convert it.
 app.use(error.converter);
