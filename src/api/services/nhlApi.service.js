@@ -1,25 +1,10 @@
 /* eslint-disable camelcase */
 const axios = require('axios');
-const svgToImg = require('svg-to-img');
 const { dateFormatter } = require('../utils/date.util');
 
-const baseLogoUrl = 'https://www-league.nhlstatic.com/images/logos/teams-current-primary-light';
 const baseUrl = 'https://statsapi.web.nhl.com/api/v1';
 
-const nhlLogo = async (teamId) => {
-  const fullUrl = `${baseLogoUrl}/${teamId}.svg`;
-
-  try {
-    const response = await axios.get(fullUrl);
-    const png = await svgToImg.from(response.data).toPng({ encoding: 'base64' });
-
-    return `data:image/png;base64,${png}`;
-  } catch (error) {
-    handleError(error);
-  }
-};
-
-const nhlScores = async (query) => {
+const nhlGames = async (query) => {
   const fullUrl = `${baseUrl}/schedule`;
 
   const params = {
@@ -56,4 +41,4 @@ const handleError = (error) => {
   }
 };
 
-module.exports = { nhlScores, nhlLogo };
+module.exports = { nhlGames };

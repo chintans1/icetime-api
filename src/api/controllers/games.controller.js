@@ -1,10 +1,7 @@
-const { nhlScores } = require('../services/nhlApi.service');
+const { nhlGames } = require('../services/nhlApi.service');
 
 // FIXME: Move these methods into a better place.
 // Not sure if controller is the best place for it.
-
-// FIXME: Host the logos internally. Difficult for consumers
-// to load the logo if they do not support .svg
 
 const getTeamName = (fullName) => {
   // FIXME: Better handling of getting team name
@@ -48,27 +45,25 @@ const transformSingleGame = game => ({
   },
 });
 
-const transformNhlScores = (scores) => {
-  const { date, games } = scores.schedule;
+const transformNhlGames = (nhlResult) => {
+  const { date, games } = nhlResult.schedule;
   const formattedGames = games.map(game => transformSingleGame(game));
 
   return {
-    scores: {
-      date,
-      games: formattedGames,
-    },
+    date,
+    games: formattedGames,
   };
 };
 
-const getScores = async (req, res, next) => {
+const getGamesForDate = async (req, res, next) => {
   try {
-    const rawScores = await nhlScores(req.query);
-    const formattedScores = transformNhlScores(rawScores);
+    const rawGames = await nhlGames(req.query);
+    const formattedGames = transformNhlGames(rawGames);
 
-    return res.json(formattedScores);
+    return res.json(formattedGames);
   } catch (error) {
     return next(error);
   }
 };
 
-module.exports = { getScores };
+module.exports = { getGamesForDate };

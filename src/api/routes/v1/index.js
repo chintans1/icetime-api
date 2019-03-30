@@ -1,5 +1,5 @@
 const express = require('express');
-const scoresRoutes = require('./scores.route');
+const gamesRoutes = require('./games.route');
 const teamsRoutes = require('./teams.route');
 
 const router = express.Router();
@@ -10,9 +10,9 @@ const router = express.Router();
 router.get('/status', (req, res) => res.send('OK'));
 
 /**
- * GET v1/scores
+ * GET v1/games
  */
-router.use('/scores', scoresRoutes);
+router.use('/games', gamesRoutes);
 
 /**
  * GET v1/teams
