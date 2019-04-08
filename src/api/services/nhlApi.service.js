@@ -16,6 +16,8 @@ const nhlGames = async (query) => {
     const response = await axios.get(fullUrl, { params });
     const { data } = response;
 
+    // FIXME: Handle no games in response
+
     return {
       schedule: {
         // Accessing [0] works for now since we only fetch data for one day
@@ -27,6 +29,13 @@ const nhlGames = async (query) => {
   } catch (error) {
     handleError(error);
   }
+};
+
+const singleNhlGame = async (query) => {
+  // FIXME: Fetch data from NHL API
+  return {
+    game: {}
+  };
 };
 
 const handleError = (error) => {
@@ -41,4 +50,4 @@ const handleError = (error) => {
   }
 };
 
-module.exports = { nhlGames };
+module.exports = { nhlGames, singleNhlGame };

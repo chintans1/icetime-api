@@ -1,4 +1,4 @@
-const { nhlGames } = require('../services/nhlApi.service');
+const { nhlGames, singleNhlGame } = require('../services/nhlApi.service');
 
 // FIXME: Move these methods into a better place.
 // Not sure if controller is the best place for it.
@@ -55,6 +55,7 @@ const transformNhlGames = (nhlResult) => {
   };
 };
 
+// GET: /v1/games
 const getGamesForDate = async (req, res, next) => {
   try {
     const rawGames = await nhlGames(req.query);
@@ -66,4 +67,15 @@ const getGamesForDate = async (req, res, next) => {
   }
 };
 
-module.exports = { getGamesForDate };
+// GET: /v1/games/{gameId}
+const getSingleGameDetails = async (req, res, next) => {
+  try {
+    const rawGameDetails = await singleNhlGame(req.query);
+
+    return res.json(rawGameDetails);
+  } catch (error) {
+    next(error);
+  }
+}
+
+module.exports = { getGamesForDate, getSingleGameDetails };
