@@ -31,13 +31,11 @@ const nhlGames = async (query) => {
   }
 };
 
-const singleNhlGame = async (query) => {
+const singleNhlGame = async query =>
   // FIXME: Fetch data from NHL API
-  return {
-    game: {}
-  };
-};
-
+  ({
+    game: {},
+  });
 const handleError = (error) => {
   if (error.response) {
     // The request was made and the server responded with
