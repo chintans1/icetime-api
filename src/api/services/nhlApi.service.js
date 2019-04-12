@@ -9,23 +9,29 @@ const nhlGames = async (query) => {
 
   const params = {
     date: dateFormatter(query.date),
-    expand: 'schedule.linescore',
+    hydrate: 'team,linescore,game(seriesSummary)',
   };
 
   try {
     const response = await axios.get(fullUrl, { params });
     const { data } = response;
 
-    // FIXME: Handle no games in response
-
-    return {
-      schedule: {
-        // Accessing [0] works for now since we only fetch data for one day
-        // meaning there is only one date in dates[]
+    let schedule;
+    if (data.dates.length === 0) {
+      schedule = {
+        date: dateFormatter(query.date),
+        games: [],
+      };
+    } else {
+      // Accessing [0] works for now since we only fetch data for one day
+      // meaning there is only one date in dates[]
+      schedule = {
         date: data.dates[0].date,
         games: data.dates[0].games,
-      },
-    };
+      };
+    }
+
+    return { schedule };
   } catch (error) {
     handleError(error);
   }
@@ -36,6 +42,7 @@ const singleNhlGame = async query =>
   ({
     game: {},
   });
+
 const handleError = (error) => {
   if (error.response) {
     // The request was made and the server responded with
